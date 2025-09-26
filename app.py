@@ -5,7 +5,6 @@ from utils.classify import classify_email
 from utils.response import generate_response
 
 app = FastAPI(title="Email Classifier API", version="1.0")
-
 @app.post("/process-email")
 async def process_email(
     file: UploadFile | None = None,

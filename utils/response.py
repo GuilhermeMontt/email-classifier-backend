@@ -1,9 +1,4 @@
-import google.generativeai as genai
-from dotenv import load_dotenv
-import os
-
-load_dotenv()
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+from utils.config import config_gemini
 
 def generate_response(text: str, category: str) -> str:
     prompt = f"""
@@ -16,6 +11,6 @@ def generate_response(text: str, category: str) -> str:
     - Se for Produtivo, responda de forma profissional e útil.
     - Se for Improdutivo, apenas agradeça educadamente.
     """
-    model = genai.GenerativeModel("gemini-1.5-flash")
+    model = config_gemini()
     response = model.generate_content(prompt)
     return response.text.strip()
