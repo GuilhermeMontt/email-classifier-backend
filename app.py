@@ -1,10 +1,27 @@
-from fastapi import FastAPI, UploadFile, Form
+from fastapi import FastAPI, UploadFile, Form, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from utils.file_handler import read_txt, read_pdf
 from utils.preprocess import clean_text
 from utils.classify import classify_email
 from utils.response import generate_response
 
 app = FastAPI(title="Email Classifier API", version="1.0")
+
+# Lista de origens permitidas (seu frontend)
+origins = [
+    "http://localhost:5173",
+]
+
+# Adicionar o middleware de CORS para permitir a comunicação
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],  # Permite todos os métodos (GET, POST, etc.)
+    allow_headers=["*"],  # Permite todos os cabeçalhos
+)
+
+
 @app.post("/process-email")
 async def process_email(
     file: UploadFile | None = None,
@@ -18,13 +35,13 @@ async def process_email(
         elif file.filename.endswith(".pdf"):
             content = await read_pdf(file)
         else:
-            return {"error": "Formato de arquivo não suportado"}
+            raise HTTPException(status_code=400, detail="Tipo de arquivo não suportado")
 
     elif text:
         content = text
 
     if not content:
-        return {"error": "Nenhum conteúdo enviado"}
+        raise HTTPException(status_code=400, detail="Mensagem vazia")
 
     cleaned = clean_text(content)
     category = classify_email(cleaned)

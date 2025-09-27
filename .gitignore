@@ -1,0 +1,8 @@
+# Arquivos de ambiente
+.env
+
+# Dependências do Python
+__pycache__/
+*.pyc
+venv/
+*.egg-info/
