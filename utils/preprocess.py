@@ -2,8 +2,6 @@ import re
 import nltk
 from nltk.corpus import stopwords
 
-nltk.download("stopwords", quiet=True)
-
 def clean_text(text: str) -> str:
     text = text.lower()
     text = re.sub(r"[^a-zA-ZÀ-ÿ0-9\s]", "", text)
