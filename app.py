@@ -7,15 +7,10 @@ from utils.response import generate_response
 
 app = FastAPI(title="Email Classifier API", version="1.0")
 
-# Lista de origens permitidas (seu frontend)
-origins = [
-    "http://localhost:5173",
-]
-
 # Adicionar o middleware de CORS para permitir a comunicação
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],  # Permite todos os métodos (GET, POST, etc.)
     allow_headers=["*"],  # Permite todos os cabeçalhos
