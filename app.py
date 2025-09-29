@@ -1,21 +1,17 @@
 from fastapi import FastAPI, UploadFile, Form, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from contextlib import asynccontextmanager
 from utils.file_handler import read_txt, read_pdf
 from utils.preprocess import clean_text
 from utils.classify import classify_email
 from utils.response import generate_response
 
-app = FastAPI(title="Email Classifier API", version="1.0")
-
-# Lista de origens permitidas (seu frontend)
-origins = [
-    "http://localhost:5173",
-]
+app = FastAPI(title="Email Classifier API", version="1.0", lifespan=lifespan)
 
 # Adicionar o middleware de CORS para permitir a comunicação
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],  # Permite todos os métodos (GET, POST, etc.)
     allow_headers=["*"],  # Permite todos os cabeçalhos
@@ -43,9 +39,11 @@ async def process_email(
     if not content:
         raise HTTPException(status_code=400, detail="Mensagem vazia")
 
+    # Reutiliza o modelo carregado na inicialização
+    model = app.state.gemini_model
     cleaned = clean_text(content)
-    category = classify_email(cleaned)
-    response = generate_response(cleaned, category)
+    category = classify_email(model, cleaned)
+    response = generate_response(model, cleaned, category)
 
     return {
         "categoria": category,
