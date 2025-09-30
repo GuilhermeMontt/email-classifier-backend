@@ -21,10 +21,9 @@ app.add_middleware(
 
 @app.get("/")
 async def debug():
-    
     return {"resposta": "Olá Mundo!"}
 
-@app.get("/process-email")
+@app.post("/process-email")
 async def process_email(
     file: UploadFile | None = None,
     text: str | None = Form(None)

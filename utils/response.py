@@ -1,4 +1,6 @@
-def generate_response(model, text: str, category: str) -> str:
+from utils.config import config_gemini
+
+def generate_response(text: str, category: str) -> str:
     prompt = f"""
     Email classificado como: {category}
 
@@ -9,5 +11,6 @@ def generate_response(model, text: str, category: str) -> str:
     - Se for Produtivo, responda de forma profissional e útil.
     - Se for Improdutivo, apenas agradeça educadamente.
     """
+    model = config_gemini()
     response = model.generate_content(prompt)
     return response.text.strip()
