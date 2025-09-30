@@ -18,6 +18,7 @@ def config_gemini():
         "top_p": 0.8,
         "top_k": 40,
         "response_mime_type": "text/plain",
+        "transport": "rest"
     }
 
     model = genai.GenerativeModel(
