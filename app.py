@@ -4,6 +4,7 @@ from utils.file_handler import read_txt, read_pdf
 from utils.preprocess import clean_text
 from utils.classify import classify_email
 from utils.response import generate_response
+import os
 
 
 app = FastAPI(title="Email Classifier API", version="1.0")
@@ -20,7 +21,9 @@ app.add_middleware(
 
 @app.get("/")
 async def debug():
-    return {"resposta": "Deu certo"}
+    api_key = os.getenv("GOOGLE_API_KEY")
+
+    return {"resposta": api_key}
 
 @app.post("/process-email")
 async def process_email(
