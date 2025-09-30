@@ -10,15 +10,15 @@ def config_gemini():
         raise ValueError("⚠️ GOOGLE_API_KEY não encontrada no .env")
 
     genai.configure(
-        api_key=api_key
+        api_key=api_key,
+        transport="rest"
     )
 
     generation_config = {
         "temperature": 0.4,
         "top_p": 0.8,
         "top_k": 40,
-        "response_mime_type": "text/plain",
-        "transport": "rest"
+        "response_mime_type": "text/plain"
     }
 
     model = genai.GenerativeModel(
