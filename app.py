@@ -1,7 +1,7 @@
 from fastapi import FastAPI, UploadFile, Form, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+
 from utils.file_handler import read_txt, read_pdf
-from utils.preprocess import clean_text
 from utils.classify import classify_email
 from utils.response import generate_response
 
@@ -17,10 +17,6 @@ app.add_middleware(
     allow_methods=["*"],  # Permite todos os métodos (GET, POST, etc.)
     allow_headers=["*"],  # Permite todos os cabeçalhos
 )
-
-@app.get("/")
-async def debug():
-    return {"resposta": "Olá Mundo!"}
 
 @app.post("/process-email")
 async def process_email(
@@ -42,9 +38,7 @@ async def process_email(
 
     if not content:
         raise HTTPException(status_code=400, detail="Mensagem vazia")
-
     
-    #cleaned = clean_text(content)
     category = classify_email(content)
     response = generate_response(content, category)
 
