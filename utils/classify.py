@@ -1,5 +1,8 @@
 from utils.config import config_gemini
 
+
+model = config_gemini()
+
 def classify_email(text: str) -> str:
     prompt = f"""
     Classifique o seguinte email como "Produtivo" ou "Improdutivo".
@@ -15,6 +18,5 @@ def classify_email(text: str) -> str:
     {text}
     """
 
-    model = config_gemini()
     response = model.generate_content(prompt)
     return response.text.strip()

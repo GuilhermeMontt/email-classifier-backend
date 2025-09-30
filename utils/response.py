@@ -1,4 +1,8 @@
-def generate_response(model, text: str, category: str) -> str:
+from utils.config import config_gemini
+
+model = config_gemini()
+
+def generate_response(text: str, category: str) -> str:
     prompt = f"""
     Email classificado como: {category}
 
