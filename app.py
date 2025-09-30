@@ -18,6 +18,9 @@ app.add_middleware(
     allow_headers=["*"],  # Permite todos os cabeçalhos
 )
 
+@app.get("/")
+async def debug():
+    return {"resposta": "Deu certo"}
 
 @app.post("/process-email")
 async def process_email(
