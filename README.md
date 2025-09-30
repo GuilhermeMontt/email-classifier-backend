@@ -4,7 +4,17 @@ Este é o backend de uma aplicação que utiliza a API do Google Gemini para cla
 
 ## Deploy
 
-A aplicação está disponível e pode ser acessada através da seguinte URL:
+A aplicação completa (Frontend + Backend) está disponível para uso.
+
+### Frontend
+
+A interface do usuário para interagir com o classificador de emails pode ser acessada em:
+
+**[https://email-classifier-frontend-oficial.onrender.com/](https://email-classifier-frontend-oficial.onrender.com/)**
+
+### Backend (API)
+
+O backend da aplicação está disponível e pode ser acessado através da seguinte URL:
 
 **[https://email-classifier-backend-in7k.onrender.com](https://email-classifier-backend-in7k.onrender.com)**
 
