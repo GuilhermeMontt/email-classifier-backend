@@ -4,7 +4,6 @@ from utils.file_handler import read_txt, read_pdf
 from utils.preprocess import clean_text
 from utils.classify import classify_email
 from utils.response import generate_response
-import os
 
 
 app = FastAPI(title="Email Classifier API", version="1.0")
@@ -45,9 +44,9 @@ async def process_email(
         raise HTTPException(status_code=400, detail="Mensagem vazia")
 
     
-    cleaned = clean_text(content)
-    category = classify_email(cleaned)
-    response = generate_response(cleaned, category)
+    #cleaned = clean_text(content)
+    category = classify_email(content)
+    response = generate_response(content, category)
 
     return {
         "categoria": category,
