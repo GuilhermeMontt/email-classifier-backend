@@ -21,11 +21,10 @@ app.add_middleware(
 
 @app.get("/")
 async def debug():
-    api_key = os.getenv("GOOGLE_API_KEY")
+    
+    return {"resposta": "Olá Mundo!"}
 
-    return {"resposta": api_key}
-
-@app.post("/process-email")
+@app.get("/process-email")
 async def process_email(
     file: UploadFile | None = None,
     text: str | None = Form(None)
